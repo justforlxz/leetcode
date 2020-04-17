@@ -11,15 +11,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: CMake
+    - name: install cargo
       run: |
-        sudo apt update
-        sudo apt install cmake clang ninja-build -y
-        mkdir build
-        cd build
-        cmake ../ -G Ninja
-        ninja -j12
-        ctest
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    - name: Run cargo build
+        cargo build
+    - name: Run cargo test
+        cargo test
+    - name: Run install kcov
+        wget https://github.com/SimonKagstrom/kcov/archive/master.tar.gz &&
+        tar xzf master.tar.gz &&
+        cd kcov-master &&
+        mkdir build &&
+        cd build &&
+        cmake .. &&
+        make &&
+        make install DESTDIR=../../kcov-build &&
+        cd ../.. &&
+        rm -rf kcov-master &&
+        for file in target/debug/examplerust-*; do [ -x "${file}" ] || continue; mkdir -p "target/cov/$(basename $file)"; ./kcov-build/usr/local/bin/kcov --exclude-pattern=/.cargo,/usr/lib --verify "target/cov/$(basename $file)" "$file"; done &&
+        bash <(curl -s https://codecov.io/bash) &&
+        echo "Uploaded code coverage"
+
     - name: Run codecov
       uses: codecov/codecov-action@v1
       with:
