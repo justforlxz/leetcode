@@ -1,0 +1,38 @@
+name: leetcode
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  unit-test:
+    name: "unit test"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+        override: true
+    - uses: actions-rs/cargo@v1
+      with:
+        command: test
+        args: --all-features --no-fail-fast
+      env:
+        CARGO_INCREMENTAL: '0'
+        RUSTFLAGS: '-Zprofile -Ccodegen-units=1 -Cinline-threshold=0 -Clink-dead-code -Coverflow-checks=off -Zno-landing-pads'
+    - id: coverage
+      uses: actions-rs/grcov@v0.1
+    - name: Coveralls upload
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ${{ steps.coverage.outputs.report }}
+        fail_ci_if_error: true
+    - name: sending msg
+      uses: yakumioto/serverchan-action@v1
+      with:
+        key: SCU78225T45c3728a9ecec4b87130557beb6136135e24105f2edfc
+        text: "leetcode单元测试通过"
+        desp: "leetcode单元测试通过"
