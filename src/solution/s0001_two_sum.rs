@@ -13,6 +13,6 @@ impl Solution {
             }
         }
 
-        return vec![];
+        panic!("you shouldn't come here, because target is not for nums!");
     }
 }
