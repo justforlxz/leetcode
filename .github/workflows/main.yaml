@@ -16,13 +16,11 @@ jobs:
         node-version: '14'
     - run: npm install -g yarn
     - run: yarn
-    - run: yarn test
     - run: yarn coverage
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-        file: ./coverage/junit.xml # optional
         flags: unittests # optional
         name: codecov-umbrella # optional
         fail_ci_if_error: true # optional (default = false)
