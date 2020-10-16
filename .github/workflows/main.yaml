@@ -26,6 +26,10 @@ jobs:
         flags: unittests # optional
         name: codecov-umbrella # optional
         fail_ci_if_error: true # optional (default = false)
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: sending msg
       uses: yakumioto/serverchan-action@v1
       with:

@@ -5,4 +5,8 @@ test('s0001 two sum', () => {
     let result = twoSum(nums, 9);
     expect(result[0]).toBe(0);
     expect(result[1]).toBe(1);
+
+    expect(() => {
+        twoSum(nums, 0)
+    }).toThrow(TypeError);
 });
