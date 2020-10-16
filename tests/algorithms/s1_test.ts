@@ -1,4 +1,4 @@
-import { twoSum } from '../../src/algorithms/two-sum/s0001_two_sum'
+import { twoSum } from '../../src/algorithms/s1_two_sum'
 
 test('s0001 two sum', () => {
     let nums = [2, 7, 11, 15]
