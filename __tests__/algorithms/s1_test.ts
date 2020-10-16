@@ -7,6 +7,10 @@ test('s0001 two sum', () => {
     expect(result[1]).toBe(1);
 
     expect(() => {
-        twoSum(nums, 0)
+        twoSum(nums, 0);
+    }).toThrow(TypeError);
+
+    expect(() => {
+        twoSum([], 0);
     }).toThrow(TypeError);
 });
