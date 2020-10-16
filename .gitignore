@@ -34,3 +34,6 @@
 .vscode/
 build/
 target/
+node_modules/
+yarn-error.log
+coverage/

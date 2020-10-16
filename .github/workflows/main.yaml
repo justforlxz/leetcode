@@ -11,33 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: actions-rs/toolchain@v1
+    - uses: actions/setup-node@v1
       with:
-        toolchain: nightly
-        override: true
-    - uses: actions-rs/cargo@v1
-      with:
-        command: test
-        args: --all-features --no-fail-fast
-      env:
-        CARGO_INCREMENTAL: '0'
-        RUSTFLAGS: '-Zprofile -Ccodegen-units=1 -Cinline-threshold=0 -Clink-dead-code -Coverflow-checks=off'
-    - id: coverage
-      uses: actions-rs/grcov@v0.1
-    - name: Coveralls upload
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ${{ steps.coverage.outputs.report }}
-        fail_ci_if_error: true
+        node-version: '14'
+    - run: npm install -g yarn
+    - run: yarn
+    - run: yarn test
+    - run: yarn coverage
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: ${{ steps.coverage.outputs.report }}
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        file: ./coverage/clover.xml # optional
+        flags: unittests # optional
+        name: codecov-umbrella # optional
+        fail_ci_if_error: true # optional (default = false)
     - name: sending msg
       uses: yakumioto/serverchan-action@v1
       with:
