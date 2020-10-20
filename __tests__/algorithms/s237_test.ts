@@ -1,4 +1,5 @@
-import { ListNode, deleteNode } from '../../src/algorithms/s237_delete-node-in-a-linked-list'
+import { deleteNode } from '../../src/algorithms/s237_delete-node-in-a-linked-list'
+import { ListNode } from '../../src/common/ListNode'
 
 function converNumberListToListNode(data: number[]): ListNode[] {
     let testData: ListNode[] = [];
@@ -41,11 +42,4 @@ test("237 delete node in alinked list", () => {
 
     // remove null
     deleteNode(null);
-
-    expect((new ListNode()).val).toEqual(0);
-    expect((new ListNode()).next).toEqual(null);
-    expect((new ListNode(-1, {val: -2, next: null})).next).toEqual({
-        val: -2,
-        next: null
-    } as ListNode);
 });

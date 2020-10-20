@@ -1,12 +1,4 @@
- // Definition for singly-linked list.
- class ListNode {
-     val: number
-     next: ListNode | null
-     constructor(val?: number, next?: ListNode | null) {
-         this.val = val ?? 0;
-         this.next = next ?? null;
-     }
- }
+import { ListNode } from '../common/ListNode'
 
 function deleteNode(root: ListNode | null): void {
     if (root === null) {
@@ -25,4 +17,4 @@ function deleteNode(root: ListNode | null): void {
     previous.next = null;
 };
 
-export { ListNode, deleteNode }
+export { deleteNode }
