@@ -1,6 +1,6 @@
 import valid from '../../src/algorithms/s20_valid-parentheses'
 
-test("s20 valid parentheses", () => {
+test("20 valid parentheses", () => {
     expect(valid("()")).toEqual(true);
     expect(valid("()[]{}")).toEqual(true);
     expect(valid("(]")).toEqual(false);
