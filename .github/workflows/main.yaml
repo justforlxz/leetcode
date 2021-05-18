@@ -15,10 +15,13 @@ jobs:
       run: |
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     - name: Run cargo build
+      run: |
         cargo build
     - name: Run cargo test
+      run: |
         cargo test
     - name: Run install kcov
+      run: |
         wget https://github.com/SimonKagstrom/kcov/archive/master.tar.gz &&
         tar xzf master.tar.gz &&
         cd kcov-master &&
@@ -32,15 +35,8 @@ jobs:
         for file in target/debug/examplerust-*; do [ -x "${file}" ] || continue; mkdir -p "target/cov/$(basename $file)"; ./kcov-build/usr/local/bin/kcov --exclude-pattern=/.cargo,/usr/lib --verify "target/cov/$(basename $file)" "$file"; done &&
         bash <(curl -s https://codecov.io/bash) &&
         echo "Uploaded code coverage"
-
     - name: Run codecov
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
-    - name: sending msg
-      uses: yakumioto/serverchan-action@v1
-      with:
-        key: SCU78225T45c3728a9ecec4b87130557beb6136135e24105f2edfc
-        text: "leetcode单元测试通过"
-        desp: "leetcode单元测试通过"
