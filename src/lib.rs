@@ -1,1 +1,4 @@
-pub mod two_sum;
+#[macro_use]
+pub mod util;
+
+pub mod solution;
