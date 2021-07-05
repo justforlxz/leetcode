@@ -1,5 +1,8 @@
 # LeetCode
 
+[![Github Action](https://github.com/justforlxz/leetcode/workflows/leetcode/badge.svg)](https://github.com/justforlxz/leetcode/actions)
+[![codecov](https://codecov.io/gh/justforlxz/leetcode/branch/master/graph/badge.svg)](https://codecov.io/gh/justforlxz/leetcode)
+
 作者: [github.com/justforlxz](https://github.com/justforlxz)
 
 这是我的 C++ leetcode 笔记。
