@@ -69,6 +69,10 @@ jobs:
           sudo apt install -y libgl1-mesa-dev libglu1-mesa-dev xorg-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
           sudo rm -rf "$VCPKG_INSTALLATION_ROOT"
         shell: bash
+      - name: install lcov
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install -y lcov
 
       - name: remove system vcpkg(windows)
         if: runner.os == 'Windows'
@@ -92,7 +96,8 @@ jobs:
       - name: Build Solution
         run: |
           cd build
-          cmake --build --target check
+          make
+          cmake --build . --target check
       - name: Report code coverage
         uses: zgosalvez/github-actions-report-lcov@v1
         with:
