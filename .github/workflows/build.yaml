@@ -12,12 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest]
-        include:
-          - os: windows-latest
-            triplet: x64-windows
-          - os: windows-latest
-            triplet: x64-linux
+        os: [ubuntu-latest]
     env:
       VCPKG_ROOT: '${{ github.workspace }}/vcpkg'
     steps:
@@ -47,14 +42,6 @@ jobs:
           # Note: given a key, the cache content is immutable. If a cache entry has been created improperly, in order the recreate the right content the key must be changed as well, and it must be brand new (i.e. not existing already).
           key: |
             ${{ hashFiles( 'vcpkg.json' ) }}-${{ runner.os }}-cache-key-v1
-      - name: Get vcpkg(windows)
-        if: ${{ runner.os == 'Windows' && steps.vcpkg-cache.outputs.cache-hit != 'true' }}
-        run: |
-          cd ${{ github.workspace }}
-          mkdir build -force
-          git clone https://github.com/Microsoft/vcpkg.git
-          cd vcpkg
-          .\bootstrap-vcpkg.bat
       - name: Get vcpkg(Linux)
         if: ${{ runner.os == 'Linux' && steps.vcpkg-cache.outputs.cache-hit != 'true' }}
         run: |
@@ -73,21 +60,6 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt install -y lcov
-
-      - name: remove system vcpkg(windows)
-        if: runner.os == 'Windows'
-        run: rm -rf "$VCPKG_INSTALLATION_ROOT"
-        shell: bash
-
-      - uses: ilammy/msvc-dev-cmd@v1
-        if: runner.os == 'Windows'
-        with:
-          arch: x64
-
-      #      - name: Setup tmate session
-      #        uses: mxschmitt/action-tmate@v3
-      #        if: runner.os == 'Linux'
-
       - name: Running cmake
         run: |
           cd ${{ github.workspace }}
@@ -104,4 +76,12 @@ jobs:
           coverage-files: build/tests/coverage.info
           minimum-coverage: 90
           artifact-name: code-coverage-report
-          github-token: ${{ secrets.CODECOV_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          files: build/tests/coverage.info
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)

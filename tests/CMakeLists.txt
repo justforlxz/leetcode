@@ -34,7 +34,7 @@ add_custom_command(TARGET check
     #3.过滤一些我们不感兴趣的文件的覆盖率信息
     COMMAND echo " =================== do filter begin ==================== "
     COMMAND lcov --remove ./coverage.info
-    '*/leetcode_autogen/*' '*/usr/include/*' '*/tests/*' '*/googletest/*'
+    '*/leetcode_autogen/*' '*/usr/include/*' '*/tests/*' '*/googletest/*' 'gtest/*' '*/gtest/*'
     -o ./coverage.info
     COMMAND echo " =================== do filter end ==================== "
 
