@@ -11,6 +11,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 file(GLOB_RECURSE TESTS_SRCS
     ./test_s1.cpp
     ./test_s11.cpp
+    ./test_s217.cpp
     ./test_s598.cpp
 )
 
