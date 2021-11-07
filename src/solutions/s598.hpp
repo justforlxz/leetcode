@@ -3,7 +3,7 @@
 template <typename T>
 class Solution {
 public:
-  T maxCount(T m, Tn, std::vector<std::vector<T>>& ops) {
+  static T maxCount(T m, T n, std::vector<std::vector<T>>& ops) {
     T mina = m;
     T minb = n;
     for (const std::vector<T>& op: ops) {

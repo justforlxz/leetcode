@@ -54,7 +54,7 @@ M 中最大的整数是 2, 而且 M 中有4个值为2的元素。因此返回 4�
 template <typename T>
 class Solution {
 public:
-  T maxCount(T m, Tn, std::vector<std::vector<T>>& ops) {
+  static T maxCount(T m, T n, std::vector<std::vector<T>>& ops) {
     T mina = m;
     T minb = n;
     for (const std::vector<T>& op: ops) {

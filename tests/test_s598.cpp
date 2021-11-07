@@ -11,8 +11,7 @@ TEST(leetcode, S598)
     {3,3},
   };
 
-  Solution solution;
-  solution.maxCount(3, 3, &check);
+  EXPECT_EQ(Solution<int>::maxCount(3, 3, check), 4);
 }
 
 #endif
